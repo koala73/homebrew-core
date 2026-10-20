@@ -19,6 +19,12 @@ class Argo < Formula
   depends_on "node" => :build
   depends_on "yarn" => :build
 
+  deny_network_access!
+
+  def fetch
+    system "go", "mod", "download"
+  end
+
   def install
     # this needs to be remove to prevent multiple 'operation not permitted' errors
     inreplace "Makefile", "CGO_ENABLED=0", ""
